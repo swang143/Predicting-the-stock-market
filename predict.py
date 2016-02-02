@@ -37,7 +37,14 @@ enough historical data to compute all the
 indicators. We'll need to remove these rows before
 we split the data.
 """
+# (1)Remove data before 1951-6-19
+# (2)remove any rows with NaN values(axis=0)
+# (3)Generate two new dataframes, one for training purposes, and contain data before 2013-01-01, and one for test and contain any rows after 2013-01-01
 
+df = df[df['Date'] >= df.loc[first_index-365]['Date']]
+df = df.dropna(axis=0)
+train = df[df['Date'] < datetime(year=2013,month=1,day=1)]
+test = df[df['Date'] >= datetime(year=2013,month=1,day=1)]
     
     
 
